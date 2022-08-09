@@ -44,17 +44,31 @@ Org mode files are placed here!
 
 Template block enables the use of >el to create a code block of elisp.
 #+begin_src elisp
+(require 'org-tempo)
 (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
 (add-to-list 'org-structure-template-alist '("sh" . "src bash"))
 (add-to-list 'org-structure-template-alist '("sv" . "src verilog"))
-(require 'org-tempo)
 #+end_src
 
 ** Projectile
 We are adding search path to projectile for typical projects location. My preference is workspace but as of right now, I need to place some work related stuff in ~/projects because scripts depend on it.
 #+begin_src elisp
 (setq projectile-project-search-path '("~/projects/" ("~/workspace/" . 1) "~/dotfiles"))
+#+end_src
+* Languages
+** Javascript
+#+begin_src elisp
+(add-hook! js-mode #'tree-sitter-mode)
+#+end_src
+** Python
+For python, we will be using treesitter mode for syntax highlighting. It is WAY better and faster than pure regex engine.
+#+begin_src elisp
+(add-hook! python-mode #'tree-sitter-mode)
+#+end_src
+** Rust
+#+begin_src elisp
+(add-hook! rust-mode #'tree-sitter-mode)
 #+end_src
 ** Verilog/Systemverilog
 What is wrong with people... default indent is weird... reseting it to sane defaults
