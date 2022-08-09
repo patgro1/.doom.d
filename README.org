@@ -4,46 +4,61 @@
 * Introduction
 * General settings
 ** User identification
-#+BEGIN_SRC elisp
+#+begin_src elisp
 (setq user-full-name "Patrick Grogan"
       user-mail-address "po.grogan@gmail.com")
-#+END_SRC
+#+end_src
+** Startup performances
+These are some improvement now the we are all using modern computers
+#+begin_src elisp
+(setq gc-cons-threshold (* 50 1000 1000))
+#+end_src
 ** Visuals
 I am using two fonts for Emacs. My mono font is [[https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode/Retina/complete][Nerd Font FiraCode Retina]]  and my varibale pitched font is [[https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Overpass/Non-Mono/Regular/complete][ Nerd Font Overpass]]. I will also make sure the that text-mode will use mixed pitch to have normal text using the variable width while code block will be using the monospace one.
-#+BEGIN_SRC elisp
+#+begin_src elisp
 (setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 16)
       doom-variable-pitch-font (font-spec :family "Overpass Nerd Font" :size 16))
 ;; Make sure text-mode uses variable pitch for non code
 (add-hook! 'text-mode-hook (mixed-pitch-mode))
-#+END_SRC
+#+end_src
 For a theme, gruv-box with a darker theme!
-#+BEGIN_SRC elisp
+#+begin_src elisp
 (setq doom-gruvbox-dark-variant 'hard
       doom-gruvbox-brighter-comments nil
       doom-theme 'doom-gruvbox)
-#+END_SRC
+#+end_src
 Relative line numbers make it so much easier to jump on the line you want to without thinking too much!
-#+BEGIN_SRC elisp
+#+begin_src elisp
 (setq display-line-numbers-type 'relative)
-#+END_SRC
+#+end_src
 * Package Configuration
 ** Org
 Just prettier bullets!
-#+BEGIN_SRC elisp
+#+begin_src elisp
 (setq org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿"))
-#+END_SRC
+#+end_src
 Org mode files are placed here!
-#+BEGIN_SRC elisp
+#+begin_src elisp
 (setq org-directory "~/org/")
-#+END_SRC
+#+end_src
+
+Template block enables the use of >el to create a code block of elisp.
+#+begin_src elisp
+(add-to-list 'org-structure-template-alist '("el" . "src elisp"))
+(add-to-list 'org-structure-template-alist '("py" . "src python"))
+(add-to-list 'org-structure-template-alist '("sh" . "src bash"))
+(add-to-list 'org-structure-template-alist '("sv" . "src verilog"))
+(require 'org-tempo)
+#+end_src
+
 ** Projectile
 We are adding search path to projectile for typical projects location. My preference is workspace but as of right now, I need to place some work related stuff in ~/projects because scripts depend on it.
-#+BEGIN_SRC elisp
+#+begin_src elisp
 (setq projectile-project-search-path '("~/projects/" ("~/workspace/" . 1) "~/dotfiles"))
-#+END_SRC
+#+end_src
 ** Verilog/Systemverilog
 What is wrong with people... default indent is weird... reseting it to sane defaults
-#+BEGIN_SRC elisp
+#+begin_src elisp
 (setq verilog-case-indent 4
       verilog-cexp-indent 4
       verilog-indent-level 4
@@ -53,4 +68,4 @@ What is wrong with people... default indent is weird... reseting it to sane defa
       verilog-indent-level-module 4
       verilog-indent-lists nil
       verilog-indent-begin-after-if t)
-#+END_SRC
+#+end_src
